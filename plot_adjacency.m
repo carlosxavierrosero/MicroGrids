@@ -26,4 +26,5 @@ text(X+0.05, Y+0.05, c, 'fontsize',12);
 
 xlabel('X-Dimension');
 ylabel('Y-Dimension');
+axis square
 return

@@ -140,17 +140,46 @@ connectivity = [];
 diffPot = [];
 FREQ = [];
 POW = [];
-
 AdjMatrix = [];
 load_system(model);
 
-for i=1:NumTests
-    fprintf('Simulation %d of %d\n',i,NumTests)
-    %[connections deg conn] = fillRandomOnes(nodes,-0.25);
-    [connections deg conn] = remove_1by1(nodes,i);
-    %[connections deg conn] = add_1by1(nodes,i);
+% for i=1:NumTests
+%     fprintf('Simulation %d of %d\n',i,NumTests)
+%     %[connections deg conn] = fillRandomOnes(nodes,-0.25);
+%     [connections deg conn] = remove_1by1(nodes,i);
+%     %[connections deg conn] = add_1by1(nodes,i);
+%     connectivity = [connectivity conn];
+%     AdjMatrix = [AdjMatrix connections];
+%     sim(model);
+%     diffPot = [diffPot max(P(end,:))-min(P(end,:))];
+%     FREQ = [FREQ f];
+%     POW = [POW P];
+% end
+
+seq1 = [1 2; 2 3; 3 4; 4 5; 5 6; 6 7; 7 8; 8 1;
+        1 3; 3 5; 5 7; 7 1;
+        2 4; 4 6; 6 8; 8 2;
+        1 5; 2 6; 3 7; 4 8;
+        1 4; 2 5; 3 6; 4 7; 5 8; 6 1; 7 2; 8 3];
+indexSeq1 = [1 8; 9 12; 13 16; 17 20; 21 28];
+        
+seq2 = [1 2; 2 3; 3 4; 4 5; 5 6; 6 7; 7 8; 8 1;
+        1 4; 4 6; 6 1;
+        2 5; 5 7; 7 2;
+        3 6; 6 8; 8 3;
+        4 7; 7 1; 1 4;    
+        5 8; 8 2; 2 5;
+        6 1; 1 3; 3 6;
+        7 2; 2 4; 4 7;    
+        8 3; 3 5; 5 8];
+indexSeq2 = [1 8; 9 11; 12 14; 15 17; 18 20; 21 23; 24 26; 27 29; 30 32];
+% new index (3) with the same sequency 2
+indexSeq3 = [9 11; 12 14; 15 17; 18 20; 21 23; 24 26; 27 29; 30 32; 1 8];    
+connections = zeros(nodes);
+ for i = 1:length(indexSeq3)
+    fprintf('Simulation %d of %d\n',i,length(indexSeq3))
+    [connections deg conn] = add_1by1SEQUEN(connections,seq2,indexSeq3(i,:));
     connectivity = [connectivity conn];
-    AdjMatrix = [AdjMatrix connections];
     sim(model);
     diffPot = [diffPot max(P(end,:))-min(P(end,:))];
     FREQ = [FREQ f];
@@ -158,5 +187,6 @@ for i=1:NumTests
 end
 
 scatter(connectivity, diffPot)
-save('8nodesConsensusSymmetricNormal_remove1by1_28sim30secFREQPOW')
-%save('8nodesConsensusSymmetricNormal_add1by1_28sim30secFREQPOW')
+%save('8nodesConsensusSymmetricNormal_addSEQ1_30secFREQPOW')
+%save('8nodesConsensusSymmetricNormal_addSEQ2_30secFREQPOW')
+save('8nodesConsensusSymmetricNormal_addSEQ3_30secFREQPOW')
