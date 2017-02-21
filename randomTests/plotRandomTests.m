@@ -1,10 +1,11 @@
 %% plotRandomTests
 close all
 
-%Sim = '8nodesConsensusSymmetricNormal_addSEQ1_30secFREQPOW.mat';
-%Sim = '8nodesConsensusSymmetricNormal_addSEQ2_30secFREQPOW.mat'
-Sim = '8nodesConsensusSymmetricNormal_addSEQ3_30secFREQPOW.mat'
-
+Sim = '8nodesConsensusSymmetricNormal_addSEQ1_30secFREQPOW.mat';
+%Sim = '8nodesConsensusSymmetricNormal_addSEQ2_30secFREQPOW.mat';
+%Sim = '8nodesConsensusSymmetricNormal_addSEQ3_30secFREQPOW.mat';
+%Sim = '8nodesConsensusSymmetricNormal_remove1by1_28sim30secFREQPOW.mat';
+%Sim = '8nodesConsensusSymmetricNormal_add1by1_28sim30secFREQPOW.mat';
 load(Sim)
 disp(Sim);
 % figure(1)
@@ -15,8 +16,8 @@ disp(Sim);
 %% plotting maximum power difference as function of algebraic connectivity
 
 scatter(connectivity, diffPot)
-set(gca,'yscale','log','xscale','log')
-%set(gca,'yscale','log') %use logarithmic scale
+%set(gca,'yscale','log','xscale','log')
+set(gca,'yscale','log') %use logarithmic scale
 xlabel('Algebraic connectivity','fontsize',20);
 ylabel('Maximum power error','fontsize',20);
 a = (1:size(connectivity,2))'; b = num2str(a); c = cellstr(b);
@@ -25,7 +26,7 @@ text(connectivity+dx, diffPot+dy, c, 'fontsize',12);
 
 %% plotting network graphs of certain experiments only, described by 'samples'
 
-samples = [1:9]; %insert the sample number to be analized
+samples = [1:5]; %insert the sample number to be analized
 nodes = size(AdjMatrix,1)
 % node coordinates in plane
 X = [0;  0.707;  1;  0.707;  0; -0.707; -1; -0.707];

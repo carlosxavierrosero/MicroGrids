@@ -180,6 +180,7 @@ connections = zeros(nodes);
     fprintf('Simulation %d of %d\n',i,length(indexSeq3))
     [connections deg conn] = add_1by1SEQUEN(connections,seq2,indexSeq3(i,:));
     connectivity = [connectivity conn];
+    AdjMatrix = [AdjMatrix connections];
     sim(model);
     diffPot = [diffPot max(P(end,:))-min(P(end,:))];
     FREQ = [FREQ f];
